@@ -1,0 +1,18 @@
+# Define las coordenadas de latitud y longitud para los marcadores
+lat <- c(6.295162735137896, 6.303981180409578, 6.185546498182906, 6.142908953746288, 6.233255329444834, 6.245549245975347, 6.24671174690434, 6.240712311456871, 6.227906514097069, 6.214382360897534)
+lon <- c(-75.53774357395861, -75.5898380711468, -75.65640180684544, -75.65640180684544, -75.60414265966247, -75.55110567537959, -75.55678122954285, -75.54937909064303, -75.54823422458388, -75.57674238676937)
+
+# Define los nombres de los lugares para los marcadores
+place <- c("UVA Nuevo Amanecer", "Mirador Cerro El Picacho", "San Antonio De Prado Parque", "El Asfixiadero", "Centro Comercial Los Molinos", "Institución Universitaria ITM - campus Fraternidad", "Parque Bicentenario", "Unidad Deportiva Miraflores", "Sendero ecológico", "Centro Comercial Monterrey")
+
+# Crea un data frame con las coordenadas y los nombres de los lugares
+df <- data.frame(lon, lat, place, stringsAsFactors = FALSE)
+
+# Convert the data frame to a spatial object using the 'sf' package
+points <- st_as_sf(df, coords = c("lon", "lat"), crs = 4326)
+
+# Create a leaflet map object and add tiles
+leaflet(points) %>% 
+  addTiles() %>% 
+  addMarkers(popup = ~ place) %>%
+  addControl("<h3>Mi primera chaba web 🎵</h3>",position = "topright")
